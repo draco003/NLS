@@ -243,7 +243,7 @@ class NLS(object):
 
             self.error = 'N/A'
             self.status = 'success'
-            return ['init', self.status, len(self.data), self.error]
+            return ['init', self.status, len(data2), self.error]
 
         except Exception:
             # empty list
