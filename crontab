@@ -1,0 +1,2 @@
+50 9 * * * /usr/bin/python /path/to/test_init.py 
+* 10-16 * * * /usr/bin/python /path/to/test_update.py
