@@ -200,7 +200,7 @@ class NLS(object):
                 n = 3
                 group_tds = [tds[i:i + n] for i in range(0, len(tds), n)]
                 if partials:
-                    # return partial records only 
+                    # return partial records only
                     group_tds = group_tds[:int(partials)]
 
                 for td in group_tds:
@@ -322,6 +322,12 @@ class NLS(object):
                     pass
             else:
                 print 'New Pages Available!'
+                # check for partials first
+                if last_partials > 0:
+                    print "We Got Partials As Well!"
+                    # then get partials and then continue with new pages
+                    self.data.extend(self.__get_table(self.sales_time, start_page+1, last_partials))
+                    print 'Partials: %s' % len(self.data)
                 # new pages available, add them
                 for page in xrange(start_page, 0, -1):
                     self.data.extend(self.__get_table(self.sales_time, page))
