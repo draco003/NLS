@@ -154,8 +154,7 @@ class NLS(object):
             last_sale_time = self.sales_time
             last_pageno = self.pages
             last_time = datetime.now(timezone('US/Eastern')).strftime('%Y-%m-%d %H:%M:%S')
-            records_partial = (len(self.data) / 50.0)
-            records_partial = abs((round(records_partial) - records_partial) * 50)
+            records_partial = (len(self.data) % 50.0)
             # print (int(last_sale_time), int(last_pageno), int(records_partial), str(last_time))
             # insert records into MySQL DB
             # TODO: Extend MySQLdb class
