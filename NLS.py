@@ -297,23 +297,26 @@ class NLS(object):
                     print 'Jump to Next Sale!'
                     # jump to next sale time and check data
                     # no need to go deeper as this would be a cronjob
-                    self.sales_time = self.sales_time + 1
-                    # update market time and number of pages
-                    self.__update_vars()
-                    if self.pages == 0:
-                        print 'Market Offline!'
-                        # market offline, will be processed in the next run
-                        pass
-                    else:
-                        print 'Scraping New Sale, going backwards!'
-                        # Go Backwards!
-                        for page in xrange(self.pages, 0, -1):
-                            # start with first page of time_sales=1 (9:30 - 9:59) EST
-                            self.data.extend(self.__get_table(self.sales_time, page))
+                    if self.sales_time < 13:
+                        self.sales_time = self.sales_time + 1
+                        # update market time and number of pages
+                        self.__update_vars()
+                        if self.pages == 0:
+                            print 'Market Offline!'
+                            # market offline, will be processed in the next run
+                            pass
+                        else:
+                            print 'Scraping New Sale, going backwards!'
+                            # Go Backwards!
+                            for page in xrange(self.pages, 0, -1):
+                                # start with first page of time_sales=1 (9:30 - 9:59) EST
+                                self.data.extend(self.__get_table(self.sales_time, page))
 
-                        data2 = data2 + len(self.data)
-                        # insert scraped data
-                        self.__db_insert_data()
+                            data2 = data2 + len(self.data)
+                            # insert scraped data
+                            self.__db_insert_data()
+                    else:
+                        print 'Nothing New - End of Trading Day!'
                 else:
                     print 'New records < Old records ?!'
                     pass
@@ -390,3 +393,4 @@ class NLS(object):
 
         except Exception:
             return None
+
