@@ -278,8 +278,8 @@ class NLS(object):
             start_page = self.pages - last_page
             if last_page == self.pages:
                 # check total number of records
-                # get new partials
-                new_partials = len(self.__get_table(self.sales_time, self.pages))
+                # get new partials, 50 is not a partial but a full page
+                new_partials = len(self.__get_table(self.sales_time, self.pages)) % 50
                 new_records = (int(self.pages - 1) * 50) + int(new_partials)
                 old_records = (int(last_page - 1) * 50) + int(last_partials)
                 print 'Old records: %s, New records: %s' % (old_records, new_records)
