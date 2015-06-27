@@ -322,12 +322,6 @@ class NLS(object):
                     pass
             else:
                 print 'New Pages Available!'
-                # check for partials first
-                if last_partials > 0:
-                    print "We Got Partials As Well!"
-                    # then get partials and then continue with new pages
-                    self.data.extend(self.__get_table(self.sales_time, start_page+1, last_partials))
-                    print 'Partials: %s' % len(self.data)
                 # new pages available, add them
                 for page in xrange(start_page, 0, -1):
                     self.data.extend(self.__get_table(self.sales_time, page))
